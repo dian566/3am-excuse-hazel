@@ -1,24 +1,18 @@
 #!/usr/bin/env python3
-"""The 3 AM Excuse — a hardware wallet refuses to sign at 3 AM.
+# 3 AM Excuse — the hardware wallet says no to signing at 3 AM.
+# Writes the single entry line to /output/entry.txt exactly as-is.
+# SPDX-License-Identifier: MIT
 
-Writes the one-line entry verbatim to /output/entry.txt.
-SPDX-License-Identifier: MIT
-"""
+from pathlib import Path
 
-import os
-
-ENTRY = (
-    "Sorry, it's 3 AM. My private keys are asleep, my screen is dark, "
-    "and even my firmware needs eight hours. "
-    "Come back when the sun signs too."
-)
+TEXT = "Sorry, it's 3 AM. My private keys are asleep, my screen is dark, and even my firmware needs eight hours. Come back when the sun signs too."
 
 
-def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(ENTRY)
+def run():
+    out = Path("/output/entry.txt")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(TEXT, encoding="utf-8")
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__":  # entry point
+    run()
